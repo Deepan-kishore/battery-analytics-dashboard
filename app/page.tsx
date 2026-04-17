@@ -33,12 +33,12 @@ export default function HomePage() {
             description="Provide real time assistance to your existing staff for faster and accurate customer support."
             href="/copilot"
           />
-           <FeatureCard
+           {/* <FeatureCard
             icon={< MonitorCheck size={32} />}
             title="Metrics"
             description="Real-time system behavior, reliability, and flow visibility"
             href="/metric"
-          />
+          /> */}
         </div>
 
         
