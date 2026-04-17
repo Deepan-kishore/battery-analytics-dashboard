@@ -20,6 +20,7 @@ interface CopilotSliceState {
   triggerId: string;
 }
 
+
 interface StaffCopilotState {
   messages: StaffMessage[];
   copilot: CopilotSliceState;
