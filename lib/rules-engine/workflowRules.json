@@ -1,0 +1,94 @@
+[
+  {
+    "id": "payment-premium-us",
+    "conditions": {
+      "issueType": "payment",
+      "userType": "premium",
+      "region": "US"
+    },
+    "response": [
+      "Reviewing premium billing workflow...",
+      "Priority payment routing is enabled.",
+      "Recommended resolution: confirm the authorization code and reconcile the invoice."
+    ],
+    "suggestedReplies": [
+      "Confirm transaction ID",
+      "Authorize payment retry",
+      "Escalate to finance ops"
+    ],
+    "knowledge": [
+      "Premium customers receive accelerated settlement review.",
+      "US payment incidents often require dual verification."
+    ],
+    "actionLabel": "Review authorized payment status"
+  },
+  {
+    "id": "payment-basic-in",
+    "conditions": {
+      "issueType": "payment",
+      "userType": "basic",
+      "region": "IN"
+    },
+    "response": [
+      "Validating payment record against India compliance rules...",
+      "The account is on the standard support tier.",
+      "Recommended resolution: verify bank details and inform the customer of expected settlement delays."
+    ],
+    "suggestedReplies": [
+      "Request bank reference",
+      "Confirm invoice date",
+      "Advise expected processing window"
+    ],
+    "knowledge": [
+      "Indian payment reconciliation often includes RBI compliance checks.",
+      "Basic users are routed through standard support with defined SLAs."
+    ],
+    "actionLabel": "Validate payment details"
+  },
+  {
+    "id": "technical-premium-in",
+    "conditions": {
+      "issueType": "technical",
+      "userType": "premium",
+      "region": "IN"
+    },
+    "response": [
+      "Analyzing technical diagnostics for premium account...",
+      "Telemetry indicates a configuration mismatch.",
+      "Recommended resolution: escalate to the engineering team for priority remediation."
+    ],
+    "suggestedReplies": [
+      "Collect system logs",
+      "Schedule a high-priority service window",
+      "Escalate to engineering"
+    ],
+    "knowledge": [
+      "Premium technical issues require priority incident response.",
+      "Indian time zones may affect escalation handoff windows."
+    ],
+    "actionLabel": "Initiate priority escalation"
+  },
+  {
+    "id": "technical-basic-us",
+    "conditions": {
+      "issueType": "technical",
+      "userType": "basic",
+      "region": "US"
+    },
+    "response": [
+      "Running standard technical checks...",
+      "The issue appears related to a local configuration setting.",
+      "Recommended resolution: guide the customer through a restart and configuration review."
+    ],
+    "suggestedReplies": [
+      "Ask for error logs",
+      "Recommend a restart",
+      "Check environment settings"
+    ],
+    "knowledge": [
+      "US region technical support follows a standard troubleshooting protocol.",
+      "Basic accounts are triaged before escalation."
+    ],
+    "actionLabel": "Guide through technical troubleshooting"
+  }
+]
