@@ -1,4 +1,4 @@
-import { BotMessageSquare,MonitorCheck, Sparkles } from 'lucide-react';
+import { BotMessageSquare, Sparkles } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 
 export default function HomePage() {
