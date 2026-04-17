@@ -1,11 +1,12 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { useAppSelector } from '@/store/hooks';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import { usePathname } from 'next/navigation';
 
-export default function ShellLayout({ children }: { children: React.ReactNode }) {
+export default function ShellLayout({ children }: { children: ReactNode }) {
   const sidebarOpen = useAppSelector((state) => state.ui.sidebarOpen);
   const pathname = usePathname();
 

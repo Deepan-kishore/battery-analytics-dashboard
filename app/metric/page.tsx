@@ -2,21 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '@/store/hooks';
-import type { MetricsFlowStep, MetricsKnowledgeStep, MetricsLogTone, MetricsWorkflowStep } from '@/store/metricsSlice';
-
-const FLOW_STEPS: Array<{ key: MetricsFlowStep; label: string }> = [
-	{ key: 'user', label: 'User' },
-	{ key: 'copilot', label: 'Copilot' },
-	{ key: 'workflow', label: 'Workflow' },
-	{ key: 'response', label: 'Response' }
-];
-
-const KNOWLEDGE_STEPS: Array<{ key: MetricsKnowledgeStep; label: string }> = [
-	{ key: 'data', label: 'Data' },
-	{ key: 'context', label: 'Context' },
-	{ key: 'decision', label: 'Decision' },
-	{ key: 'response', label: 'Response' }
-];
+import type { MetricsLogTone, MetricsWorkflowStep } from '@/store/metricsSlice';
 
 const WORKFLOW_STEPS: Array<{ key: MetricsWorkflowStep; label: string }> = [
 	{ key: 'intent', label: 'Intent detected' },
