@@ -32,37 +32,37 @@ const INITIAL_MESSAGES: StaffMessage[] = [
   {
     id: nanoid(),
     sender: 'customer',
-    text: "Hi, I booked an installation for my AC. Can I reschedule it?",
+    text: 'Voltage spike detected on the rear battery pack during charging. Can the diagnostic window be replayed?',
     timestamp: new Date(now - 300000).toISOString()
   },
   {
     id: nanoid(),
     sender: 'staff',
-    text: "Yep, just tell me your preferred date and I'll update it for you.",
+    text: 'Yes, share the preferred replay window and I will queue the diagnostic run.',
     timestamp: new Date(now - 240000).toISOString()
   },
   {
     id: nanoid(),
     sender: 'customer',
-    text: "Also, does the technician bring the mounting brackets?",
+    text: 'Does the field kit include the standard battery mounting hardware?',
     timestamp: new Date(now - 180000).toISOString()
   },
   {
     id: nanoid(),
     sender: 'staff',
-    text: "Yes, standard brackets are included by default.",
+    text: 'Yes, the standard mounting kit is included by default for supported battery platforms.',
     timestamp: new Date(now - 120000).toISOString()
   },
   {
     id: nanoid(),
     sender: 'customer',
-    text: "My home automation hub needs the AC's exact IR command format. Do you know which protocol the model uses?",
+    text: 'The vehicle controller needs the battery module command format. Do you know which protocol the pack uses?',
     timestamp: new Date(now - 60000).toISOString()
   },
   {
     id: nanoid(),
     sender: 'staff',
-    text: "Let me check with the team and get back to you",
+    text: 'Let me review the diagnostic references and get back to you.',
     timestamp: new Date(now - 30000).toISOString()
   }
 ];

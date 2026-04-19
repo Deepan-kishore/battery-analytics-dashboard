@@ -24,10 +24,10 @@ import {
 } from '@/store/metricsSlice';
 
 const THINKING_STEPS = [
-  'Searching through docs...',
-  'Analyzing customer query...',
-  'Mapping correct workflow...',
-  'Generating response...'
+  'Ingesting telemetry traces...',
+  'Analyzing battery event...',
+  'Triggering diagnostic model...',
+  'Generating prediction...'
 ];
 
 function getMockResponse(lastCustomerText: string): { response: string; followUp: string } {
@@ -36,31 +36,31 @@ function getMockResponse(lastCustomerText: string): { response: string; followUp
   if (lower.includes('reschedule')) {
     return {
       response:
-        "I can help reschedule the installation. The earliest available slot is tomorrow between 10 AM–12 PM. I'll update the booking and send a confirmation to the customer right away.",
-      followUp: 'Would you like me to send a confirmation email to the customer?'
+        'Diagnostic summary: the event window can be reprocessed in the next available analysis slot tomorrow between 10 AM and 12 PM. The system can queue a fresh telemetry replay for the vehicle immediately.',
+      followUp: 'Would you like me to schedule a replay and notify the operations team?'
     };
   }
 
   if (lower.includes('brackets') || lower.includes('mounting')) {
     return {
       response:
-        "All standard installations include mounting brackets as part of the service kit. The technician carries a complete set for most AC models including wall studs and anti-vibration pads.",
-      followUp: 'Would you like me to check if this model requires a special bracket type?'
+        'Diagnostic summary: the standard battery service kit includes the default mounting hardware and vibration isolation components used for most supported vehicle platforms.',
+      followUp: 'Would you like me to verify whether this vehicle requires a specialized mounting assembly?'
     };
   }
 
   if (lower.includes('ir') || lower.includes('protocol')) {
     return {
       response:
-        "Suggested response based on current context:\nYour AC model uses the NEC 32-bit IR protocol with temperature commands encoded in the final 8 bits. I can also provide the full command table if needed.",
-      followUp: 'Note: This is a demo. Responses are fixed to simulate behavior.'
+        'Suggested diagnostic output based on current telemetry:\nThe battery control path is broadcasting a 32-bit control frame with thermal commands encoded in the final 8 bits. I can also provide the complete command map if needed.',
+      followUp: 'Note: This is a demo. Predictions are fixed to simulate observability workflows.'
     };
   }
 
   return {
     response:
-      "Based on the customer's query, I recommend checking our knowledge base for relevant policies and providing a detailed response with clear next steps.",
-    followUp: 'Would you like me to search for similar resolved cases?'
+      'Based on the latest battery event, I recommend checking the diagnostic knowledge base for similar fault signatures and preparing a detailed mitigation plan.',
+    followUp: 'Would you like me to search for similar resolved battery events?'
   };
 }
 
@@ -90,14 +90,14 @@ export default function StaffCopilotPanel() {
     dispatch(setMetricsFlowStep('user'));
     dispatch(setMetricsWorkflowStep('intent'));
     dispatch(setMetricsKnowledgeStep('data'));
-    dispatch(appendMetricsLog({ label: `Message received: ${query}` }));
+    dispatch(appendMetricsLog({ label: `Telemetry event received: ${query}` }));
 
-    // Get the last customer message from the left panel
+    // Get the last system event from the left panel
     const lastCustomerMsg = [...messages].reverse().find((m) => m.sender === 'customer');
 
     dispatch(setMetricsFlowStep('copilot'));
     dispatch(setMetricsKnowledgeStep('context'));
-    dispatch(appendMetricsLog({ label: 'Copilot triggered' }));
+    dispatch(appendMetricsLog({ label: 'Diagnostic model triggered' }));
 
     // Cycle through thinking steps (~800ms each ≈ 3.2s total)
     for (let i = 0; i < THINKING_STEPS.length; i++) {
@@ -108,12 +108,12 @@ export default function StaffCopilotPanel() {
     dispatch(setMetricsFlowStep('workflow'));
     dispatch(setMetricsWorkflowStep('routing'));
     dispatch(setMetricsKnowledgeStep('decision'));
-    dispatch(appendMetricsLog({ label: 'Workflow selected -> staff guidance' }));
+    dispatch(appendMetricsLog({ label: 'Diagnostic model triggered -> operator guidance' }));
 
     // 5% failure rate
     if (Math.random() < 0.05) {
       dispatch(setCopilotError());
-      dispatch(appendMetricsLog({ label: 'Fallback used', tone: 'error' }));
+      dispatch(appendMetricsLog({ label: 'Fallback diagnostic model engaged', tone: 'error' }));
       return;
     }
 
@@ -124,7 +124,8 @@ export default function StaffCopilotPanel() {
     dispatch(setMetricsKnowledgeStep('response'));
     dispatch(recordMessageProcessed());
     dispatch(recordResponseTime(Math.round(performance.now() - startedAt)));
-    dispatch(appendMetricsLog({ label: 'Response generated', tone: 'success' }));
+    dispatch(appendMetricsLog({ label: 'Prediction generated', tone: 'success' }));
+    dispatch(appendMetricsLog({ label: 'Voltage irregularity detected' }));
   }
 
   function handleSend() {
@@ -154,7 +155,7 @@ export default function StaffCopilotPanel() {
 
   const showResponse = !copilot.isLoading && copilot.response !== null && !copilot.error;
   const showDefaultPrompt = !copilot.isLoading && !copilot.response && !copilot.error;
-  const defaultPrompt = 'Ask for guidance on this case and I’ll help craft a response.';
+  const defaultPrompt = 'Ask for guidance on this battery event and I’ll help craft a diagnostic response.';
 
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
@@ -162,7 +163,7 @@ export default function StaffCopilotPanel() {
       <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
         <div className="flex items-center gap-2">
           <Sparkles size={18} className="text-yellow-400" fill="currentColor" />
-          <span className="font-semibold text-slate-900 text-base">Copilot</span>
+          <span className="font-semibold text-slate-900 text-base">Diagnostics Copilot</span>
         </div>
         <button
           className="text-slate-400 hover:text-slate-600 transition-colors"
@@ -174,7 +175,7 @@ export default function StaffCopilotPanel() {
 
       {/* Content Body */}
       <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4">
-        {/* Staff query bubble — shown once query is set */}
+        {/* Diagnostic query bubble — shown once query is set */}
         {copilot.query && (
           <div className="flex justify-end">
             <div className="max-w-[80%] bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-800 leading-relaxed">
@@ -191,7 +192,7 @@ export default function StaffCopilotPanel() {
           </div>
         )}
 
-        {/* Initial Copilot prompt */}
+        {/* Initial diagnostics prompt */}
         {showDefaultPrompt && (
           <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-700">
             {defaultPrompt}
@@ -201,10 +202,10 @@ export default function StaffCopilotPanel() {
         {/* Completed trace + response cards */}
         {showResponse && (
           <>
-            {/* Searched through docs trace */}
+            {/* Diagnostic trace */}
             <div className="flex items-center gap-2 text-slate-400 text-sm">
               <Search size={14} className="flex-shrink-0" />
-              <span>searched through docs</span>
+              <span>diagnostic trace captured</span>
             </div>
 
             {/* Main response card */}
@@ -224,7 +225,7 @@ export default function StaffCopilotPanel() {
         {/* Error state */}
         {copilot.error && (
           <div className="flex flex-col gap-3">
-            <p className="text-sm text-rose-500">Failed to generate response</p>
+            <p className="text-sm text-rose-500">Failed to generate diagnostic prediction</p>
             <button
               onClick={handleRetry}
               type="button"
@@ -243,7 +244,7 @@ export default function StaffCopilotPanel() {
             onClick={handleCopy}
             type="button"
             className="flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900 transition-colors"
-            aria-label="Copy response"
+            aria-label="Copy diagnostic output"
           >
             <Copy size={15} />
             <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -252,15 +253,15 @@ export default function StaffCopilotPanel() {
             onClick={handleSendInChat}
             type="button"
             className="flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900 transition-colors"
-            aria-label="Send response to chat"
+            aria-label="Send diagnostic output to event log"
           >
             <SendHorizonal size={15} />
-            <span>Send in chat</span>
+            <span>Send to event log</span>
           </button>
         </div>
       )}
 
-      {/* Copilot Input */}
+      {/* Diagnostics Input */}
       <div className="px-5 py-4 border-t border-slate-100 flex items-center gap-3">
         <input
           value={inputText}
@@ -271,16 +272,16 @@ export default function StaffCopilotPanel() {
               handleSend();
             }
           }}
-          placeholder="Ask Copilot..."
+          placeholder="Ask diagnostics copilot..."
           disabled={copilot.isLoading}
-          aria-label="Ask Copilot"
+          aria-label="Ask diagnostics copilot"
           className="flex-1 text-sm text-slate-800 placeholder-slate-400 bg-transparent outline-none disabled:opacity-50"
         />
         <button
           onClick={handleSend}
           disabled={copilot.isLoading || !inputText.trim()}
           type="button"
-          aria-label="Send to Copilot"
+          aria-label="Send to diagnostics copilot"
           className="flex-shrink-0 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 transition-colors text-slate-700 rounded-full p-2 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <SendHorizonal size={16} />

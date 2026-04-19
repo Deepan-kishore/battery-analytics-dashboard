@@ -7,10 +7,10 @@ interface ConnectionBannerProps {
 export default function ConnectionBanner({ connection }: ConnectionBannerProps) {
   const statusText =
     connection === 'connected'
-      ? 'Live connection established'
+      ? 'Telemetry stream active'
       : connection === 'reconnecting'
-      ? 'Reconnecting to the message stream…'
-      : 'Connection lost. Auto reconnect in progress.';
+      ? 'Reconnecting telemetry stream…'
+      : 'Telemetry disconnected. Auto-reconnect in progress.';
 
   const statusClass =
     connection === 'connected'

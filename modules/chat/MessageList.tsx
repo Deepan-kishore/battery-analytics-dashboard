@@ -65,7 +65,7 @@ export default function MessageList({ messages, loading, feedback, onRetry, onEs
                   Retry
                 </button>
                 <button onClick={onEscalate} className="rounded-full border border-slate-300 bg-white px-3 py-1 text-slate-700 transition hover:bg-slate-100">
-                  Escalate to human
+                  Escalate to operator
                 </button>
               </div>
             ) : null}

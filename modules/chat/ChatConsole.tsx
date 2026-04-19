@@ -43,7 +43,7 @@ export default function ChatConsole() {
   );
   const socketRef = useRef<MockSocket | null>(null);
   const retryTextRef = useRef<string>('');
-  const [lastInteraction, setLastInteraction] = useState('Ready to handle customer requests.');
+  const [lastInteraction, setLastInteraction] = useState('Ready to process live battery telemetry.');
   const [failureModeEnabled, setFailureModeEnabled] = useState(false);
 
   function updateObservedLatency(startedAt: number) {
@@ -56,26 +56,26 @@ export default function ChatConsole() {
   }
 
   async function handleEscalation(stepId: string, startedAt: number) {
-    dispatch(updateMessageText({ id: stepId, text: 'Response failed. Escalating to human agent...' }));
+    dispatch(updateMessageText({ id: stepId, text: 'Diagnostic prediction failed. Escalating to system operator...' }));
     dispatch(markMessageStatus({ id: stepId, status: 'failed' }));
     dispatch(addMessage({
       role: 'system',
-      text: "I'm connecting you to a human agent for further assistance.",
+      text: 'Escalating this battery event to a system operator for further analysis.',
       status: 'sent'
     }));
     dispatch(recordMessageProcessed());
     dispatch(recordResponseTime(Math.round(performance.now() - startedAt)));
-    dispatch(appendMetricsLog({ label: 'Escalation triggered', tone: 'error' }));
+    dispatch(appendMetricsLog({ label: 'Operator escalation triggered', tone: 'error' }));
     dispatch(setMetricsFlowStep('response'));
     dispatch(setMetricsWorkflowStep('output'));
     dispatch(setMetricsKnowledgeStep('response'));
     updateObservedLatency(startedAt);
     dispatch(setLoading(false));
-    setLastInteraction('Human escalation path triggered.');
+    setLastInteraction('Operator escalation path triggered.');
   }
 
   async function runFailureScenario(stepId: string, startedAt: number) {
-    dispatch(appendMetricsLog({ label: 'Failure mode triggered', tone: 'warn' }));
+    dispatch(appendMetricsLog({ label: 'Battery fault simulation triggered', tone: 'warn' }));
 
     const scenario = randomBetween(0, 2);
 
@@ -85,8 +85,8 @@ export default function ChatConsole() {
       for (let attempt = 1; attempt <= retryAttempts; attempt += 1) {
         dispatch(incrementRetry());
         dispatch(setMetricsRetryCount(attempt));
-        dispatch(updateMessageText({ id: stepId, text: `Retrying response (${attempt}/3)...` }));
-        dispatch(appendMetricsLog({ label: `Retry attempt ${attempt}`, tone: 'warn' }));
+        dispatch(updateMessageText({ id: stepId, text: `Reconnecting telemetry pipeline (${attempt}/3)...` }));
+        dispatch(appendMetricsLog({ label: `Reconnection attempt initiated (${attempt}/3)`, tone: 'warn' }));
         await waitWithLatency(randomBetween(2000, 4000), startedAt);
       }
 
@@ -100,7 +100,8 @@ export default function ChatConsole() {
     }
 
     if (scenario === 1) {
-      dispatch(updateMessageText({ id: stepId, text: 'Processing taking longer than expected...' }));
+      dispatch(updateMessageText({ id: stepId, text: 'Diagnostic processing taking longer than expected...' }));
+      dispatch(appendMetricsLog({ label: 'Recalibrating prediction model', tone: 'warn' }));
       await waitWithLatency(randomBetween(3000, 5000), startedAt);
       dispatch(markMessageStatus({ id: stepId, status: 'sent' }));
       return 'delayed' as const;
@@ -116,17 +117,17 @@ export default function ChatConsole() {
         dispatch(setConnection(status));
         dispatch(setMetricsConnectionStatus(status));
         if (status === 'connected') {
-          setLastInteraction('Real-time stream is healthy.');
-          dispatch(appendMetricsLog({ label: 'Connection restored', tone: 'success' }));
+          setLastInteraction('Real-time telemetry stream is healthy.');
+          dispatch(appendMetricsLog({ label: 'Telemetry stream restored', tone: 'success' }));
         }
         if (status === 'disconnected') {
           dispatch(setLatency(0));
-          dispatch(appendMetricsLog({ label: 'Fallback used: connection lost', tone: 'error' }));
+          dispatch(appendMetricsLog({ label: 'Fallback diagnostic model engaged: telemetry lost', tone: 'error' }));
         }
       },
       onMessage: (text) => {
         dispatch(addMessage({ role: 'system', text, status: 'sent' }));
-        dispatch(appendMetricsLog({ label: 'Message received: system notification' }));
+        dispatch(appendMetricsLog({ label: 'Telemetry event received: system notification' }));
       },
       onLatency: (latency) => {
         dispatch(setLatency(latency));
@@ -134,7 +135,7 @@ export default function ChatConsole() {
       onRetry: (attempt, backoff) => {
         dispatch(setMetricsRetryCount(attempt));
         dispatch(setMetricsConnectionStatus('reconnecting'));
-        dispatch(appendMetricsLog({ label: `Retry triggered (${backoff / 1000}s backoff)`, tone: 'warn' }));
+        dispatch(appendMetricsLog({ label: `Reconnection attempt initiated (${backoff / 1000}s backoff)`, tone: 'warn' }));
       }
     });
 
@@ -170,7 +171,7 @@ export default function ChatConsole() {
     dispatch(setMetricsFlowStep('user'));
     dispatch(setMetricsWorkflowStep('intent'));
     dispatch(setMetricsKnowledgeStep('data'));
-    dispatch(appendMetricsLog({ label: `Message received: ${messageText}` }));
+    dispatch(appendMetricsLog({ label: `Telemetry event received: ${messageText}` }));
     dispatch(
       setSuggestions({
         replies: workflow.suggestedReplies,
@@ -181,16 +182,16 @@ export default function ChatConsole() {
     retryTextRef.current = messageText;
 
     const thinkingSteps = [
-      'Searching through knowledge base...',
-      'Analyzing request context...',
-      'Evaluating best response...',
-      'Preparing personalized answer...'
+      'Ingesting sensor data...',
+      'Extracting pack-level features...',
+      'Running predictive diagnostics...',
+      'Computing recommended action...'
     ];
 
     const sampleResponses = [
-      "Thanks for reaching out and sharing the details. I'm checking your request against our system to understand what's causing this. I'll guide you with the best possible solution right away.",
-      "I've reviewed your request and looked into the relevant details. Based on what I see, there's a clear way to resolve this smoothly. Let me walk you through the next steps.",
-      "Appreciate your patience while I looked into this for you. I've identified what's happening and how we can fix it. Here's what you can do next to resolve it quickly."
+      'Battery telemetry review complete. The system detected abnormal behavior in the latest event window and prepared a recommended stabilization sequence for the vehicle.',
+      'Diagnostic review complete. The battery event has been correlated with recent telemetry, and the system recommends the next mitigation steps for the pack.',
+      'The anomaly model has identified the likely fault condition and generated a resolution path. Review the recommended action before applying it to the system.'
     ];
 
     const stepId = crypto.randomUUID();
@@ -205,7 +206,7 @@ export default function ChatConsole() {
     );
     dispatch(setMetricsFlowStep('copilot'));
     dispatch(setMetricsKnowledgeStep('context'));
-    dispatch(appendMetricsLog({ label: 'Copilot triggered' }));
+    dispatch(appendMetricsLog({ label: 'Diagnostic model triggered' }));
 
     // Show thinking steps one at a time, replacing previous line
     for (let i = 1; i < thinkingSteps.length; i++) {
@@ -219,7 +220,7 @@ export default function ChatConsole() {
     dispatch(setMetricsFlowStep('workflow'));
     dispatch(setMetricsWorkflowStep('routing'));
     dispatch(setMetricsKnowledgeStep('decision'));
-    dispatch(appendMetricsLog({ label: `Workflow selected -> ${workflow.actionLabel}` }));
+    dispatch(appendMetricsLog({ label: `Diagnostic model selected -> ${workflow.actionLabel}` }));
 
     if (failureModeEnabled && Math.random() < 0.5) {
       const outcome = await runFailureScenario(stepId, responseStartedAt);
@@ -243,10 +244,11 @@ export default function ChatConsole() {
     dispatch(setMetricsKnowledgeStep('response'));
     dispatch(recordMessageProcessed());
     dispatch(recordResponseTime(Math.round(performance.now() - responseStartedAt)));
-    dispatch(appendMetricsLog({ label: 'Response generated', tone: 'success' }));
+    dispatch(appendMetricsLog({ label: 'Prediction generated', tone: 'success' }));
+    dispatch(appendMetricsLog({ label: 'Anomaly detected: temperature spike' }));
     updateObservedLatency(responseStartedAt);
     dispatch(setLoading(false));
-    setLastInteraction('Workflow response delivered.');
+    setLastInteraction('Diagnostic resolution delivered.');
   }
 
   function handleSend(text: string) {
@@ -264,21 +266,21 @@ export default function ChatConsole() {
       return;
     }
     dispatch(incrementRetry());
-    dispatch(appendMetricsLog({ label: 'Retry triggered', tone: 'warn' }));
+    dispatch(appendMetricsLog({ label: 'Reconnection attempt initiated', tone: 'warn' }));
     processUserMessage(retryTextRef.current);
   }
 
   function handleEscalate() {
-    dispatch(addMessage({ role: 'system', text: 'Escalation requested. The request has been forwarded to human support.', status: 'sent' }));
+    dispatch(addMessage({ role: 'system', text: 'Escalation requested. The battery event has been forwarded to the system operator.', status: 'sent' }));
     dispatch(resetRetry());
-    setLastInteraction('Human escalation path triggered.');
+    setLastInteraction('Operator escalation path triggered.');
   }
 
   function handleFeedback(messageId: string, value: 'up' | 'down') {
     dispatch(recordFeedback({ messageId, feedback: value }));
   }
 
-  const headerNote = connection === 'disconnected' ? 'Connection lost: some actions may queue until reconnect.' : lastInteraction;
+  const headerNote = connection === 'disconnected' ? 'Telemetry lost: some diagnostic actions may queue until reconnect.' : lastInteraction;
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1.75fr_0.95fr]">
@@ -290,8 +292,8 @@ export default function ChatConsole() {
         <div className="rounded-3xl bg-white p-5 shadow-panel">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Customer interaction</p>
-              <h2 className="text-xl font-semibold text-slate-900">Conversation panel</h2>
+              <p className="text-sm uppercase tracking-[0.22em] text-slate-500">Battery event stream</p>
+              <h2 className="text-xl font-semibold text-slate-900">Telemetry console</h2>
             </div>
             <p className="text-sm text-slate-500">{headerNote}</p>
           </div>

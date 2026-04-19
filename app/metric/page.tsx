@@ -5,9 +5,9 @@ import { useAppSelector } from '@/store/hooks';
 import type { MetricsLogTone, MetricsWorkflowStep } from '@/store/metricsSlice';
 
 const WORKFLOW_STEPS: Array<{ key: MetricsWorkflowStep; label: string }> = [
-	{ key: 'intent', label: 'Intent detected' },
-	{ key: 'routing', label: 'Workflow selected' },
-	{ key: 'output', label: 'Output prepared' }
+	{ key: 'intent', label: 'Fault detected' },
+	{ key: 'routing', label: 'Diagnostic model triggered' },
+	{ key: 'output', label: 'Resolution computed' }
 ];
 
 function badgeClasses(status: 'connected' | 'reconnecting' | 'disconnected') {
@@ -77,10 +77,10 @@ export default function MetricPage() {
 
 	const statusLabel =
 		connection.status === 'connected'
-			? 'Connected'
+			? 'Telemetry stream active'
 			: connection.status === 'reconnecting'
-				? 'Reconnecting'
-				: 'Disconnected';
+				? 'Reconnecting telemetry stream'
+				: 'Telemetry disconnected';
 
 	return (
 		<main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(148,163,184,0.16),_transparent_38%),linear-gradient(180deg,_#f8fafc_0%,_#eef2f7_100%)] px-4 py-6 sm:px-6 lg:px-8">
@@ -88,10 +88,10 @@ export default function MetricPage() {
 				<section className="rounded-[28px] border border-white/70 bg-white/85 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur">
 					<div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 						<div>
-							<p className="text-xs font-medium uppercase tracking-[0.3em] text-slate-500">Metrics & system insights</p>
-							<h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">Live behavior dashboard</h1>
+							<p className="text-xs font-medium uppercase tracking-[0.3em] text-slate-500">Battery analytics & system insights</p>
+							<h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">Real-time battery observability</h1>
 							<p className="mt-2 max-w-2xl text-sm text-slate-600">
-								Lightweight telemetry for message flow, retry behavior, routing, and response generation.
+								Live telemetry for anomaly flow, reconnection behavior, diagnostic routing, and prediction output.
 							</p>
 						</div>
 
@@ -100,7 +100,7 @@ export default function MetricPage() {
 								{statusLabel}
 							</span>
 							<span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
-								Live app events
+								Live battery events
 							</span>
 						</div>
 					</div>
@@ -108,36 +108,37 @@ export default function MetricPage() {
 
 				<section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
 					<div className={`rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm transition duration-300 ${messagePulse ? 'scale-[1.02] border-sky-300 shadow-[0_12px_30px_rgba(14,165,233,0.12)]' : ''}`}>
-						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Messages processed</p>
+						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Events processed</p>
 						<p className="mt-3 text-3xl font-semibold text-slate-950">{messageCount}</p>
-						<p className="mt-2 text-sm text-slate-500">Increments on user send and copilot response.</p>
+						<p className="mt-2 text-sm text-slate-500">Increments on telemetry event intake and diagnostic output.</p>
 					</div>
 
 					<div className={`rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm transition duration-300 ${latencyPulse ? 'scale-[1.02] border-emerald-300 shadow-[0_12px_30px_rgba(16,185,129,0.12)]' : ''}`}>
-						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Avg response time</p>
+						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Avg processing latency</p>
 						<p className="mt-3 text-3xl font-semibold text-slate-950">{avgResponseTime} ms</p>
-						<p className="mt-2 text-sm text-slate-500">Derived from simulated response delays.</p>
+						<p className="mt-2 text-sm text-slate-500">Derived from simulated diagnostic processing delays.</p>
 					</div>
 
 					<div className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm">
-						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Retry count</p>
+						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Reconnection attempts</p>
 						<p className="mt-3 text-3xl font-semibold text-slate-950">{connection.retryCount}</p>
 						<p className="mt-2 text-sm text-slate-500">Backoff steps: 1s, 2s, 4s on disconnect.</p>
 					</div>
 
 					<div className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm">
-						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Current input</p>
+						<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Current event</p>
 						<p className="mt-3 text-lg font-semibold text-slate-950">{flow.activeInput}</p>
-						<p className="mt-2 text-sm text-slate-500">Latest request routed through the workflow.</p>
+						<p className="mt-2 text-sm text-slate-500">Latest telemetry event routed through the diagnostic model.</p>
 					</div>
 				</section>
 
 				<section className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
 					{/* <div className="grid gap-4"> */}
 						<div className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm">
-							<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Workflow visualization</p>
-							<h2 className="mt-2 text-lg font-semibold text-slate-950">Routing logic</h2>
-							<p className="mt-2 text-sm text-slate-500">Input: {flow.activeInput}</p>
+							<p className="text-xs uppercase tracking-[0.24em] text-slate-500">Diagnostic workflow</p>
+							<h2 className="mt-2 text-lg font-semibold text-slate-950">Resolution pipeline</h2>
+							<p className="mt-2 text-sm text-slate-500">Event: {flow.activeInput}</p>
+							<p className="mt-1 text-sm text-slate-500">Knowledge flow: Sensor Data → Feature Extraction → Prediction → Action</p>
 
 							<ol className="mt-5 space-y-3">
 								{WORKFLOW_STEPS.map((step) => {
@@ -154,9 +155,9 @@ export default function MetricPage() {
 										>
 											<p className="text-sm font-medium text-slate-900">{step.label}</p>
 											<p className="mt-1 text-sm text-slate-500">
-												{step.key === 'intent' && 'classified from latest input'}
-												{step.key === 'routing' && 'mapped to the active support workflow'}
-												{step.key === 'output' && 'response prepared for delivery'}
+												{step.key === 'intent' && 'classified from the latest telemetry event'}
+												{step.key === 'routing' && 'mapped to the active battery diagnostic model'}
+												{step.key === 'output' && 'resolution package prepared for action'}
 											</p>
 										</li>
 									);
@@ -168,14 +169,14 @@ export default function MetricPage() {
 							<div className="flex items-center justify-between gap-3">
 								<div>
 									<p className="text-xs uppercase tracking-[0.24em] text-slate-400">Mini logs</p>
-									<h2 className="mt-2 text-lg font-semibold text-white">Event stream</h2>
+									<h2 className="mt-2 text-lg font-semibold text-white">Telemetry log stream</h2>
 								</div>
 								<p className="text-xs uppercase tracking-[0.18em] text-slate-500">Max 20 entries</p>
 							</div>
 
 							<div className="mt-5 h-[320px] overflow-y-auto rounded-2xl border border-white/10 bg-slate-950/70 p-4 font-mono text-xs leading-6">
 								{logs.length === 0 ? (
-									<p className="text-slate-500">Waiting for events...</p>
+									<p className="text-slate-500">Waiting for telemetry events...</p>
 								) : (
 									logs.map((entry) => (
 										<div key={entry.id} className="flex items-start gap-3">

@@ -5,8 +5,8 @@ import Providers from './providers';
 import ShellLayout from '@/components/ShellLayout';
 
 export const metadata: Metadata = {
-  title: 'Cignaro Support Console',
-  description: 'Enterprise AI customer support simulation dashboard'
+  title: 'Cignaro Battery Analytics Console',
+  description: 'Real-time battery analytics and observability dashboard'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

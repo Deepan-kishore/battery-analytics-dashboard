@@ -17,7 +17,7 @@ const initialState: ChatState = {
     {
       id: nanoid(),
       role: 'system',
-      text: 'Welcome to Cignaro support. Select a workflow and begin the interaction to trigger enterprise-style handling.',
+      text: 'Welcome to Cignaro battery analytics. Select a diagnostic profile and begin streaming telemetry events to trigger system analysis.',
       timestamp: new Date().toISOString(),
       status: 'sent'
     }
@@ -32,9 +32,9 @@ const initialState: ChatState = {
     region: 'US'
   },
   suggestions: {
-    replies: ['Ask for transaction ID', 'Confirm account details', 'Request billing statement'],
-    knowledge: ['Premium customers get priority review.', 'US billing follows a standard authorization process.'],
-    action: 'Review the payment workflow.'
+    replies: ['Inspect voltage trace', 'Review thermal envelope', 'Run cell balancing diagnostics'],
+    knowledge: ['Telemetry anomalies are prioritized by severity and persistence.', 'US fleet batteries follow a standard thermal protection routine.'],
+    action: 'Review the battery diagnostics workflow.'
   },
   feedback: {}
 };

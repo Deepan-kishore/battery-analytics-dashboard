@@ -44,9 +44,9 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {[
-              { href: '/customers', label: 'Customers' },
-              { href: '/copilot', label: 'Staff' },
-              { href: '/metric', label: 'Metrics' },
+              { href: '/customers', label: 'Monitor' },
+              { href: '/copilot', label: 'Diagnostics' },
+              { href: '/metric', label: 'Analytics' },
             ].map(({ href, label }) => {
               const isActive = pathname === href;
               return (
@@ -86,9 +86,9 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden pb-4 border-t border-slate-200 mt-1">
             {[
-              { href: '/customers', label: 'Customers' },
-              { href: '/copilot', label: 'Staff' },
-              { href: '/metric', label: 'Metrics' },
+              { href: '/customers', label: 'Monitor' },
+              { href: '/copilot', label: 'Diagnostics' },
+              { href: '/metric', label: 'Analytics' },
             ].map(({ href, label }) => {
               const isActive = pathname === href;
               return (

@@ -53,28 +53,28 @@ export default function CopilotPanel({
     <aside className="space-y-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-panel">
       {/* Header */}
       <div className="border-b border-slate-200 pb-4">
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Copilot briefing</p>
-        <h2 className="mt-3 text-xl font-semibold text-slate-900">Next best actions</h2>
+        <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Diagnostic briefing</p>
+        <h2 className="mt-3 text-xl font-semibold text-slate-900">Recommended next actions</h2>
       </div>
 
       <div className="space-y-4">
         {/* Connection Status */}
         <div className="rounded-3xl bg-slate-50 p-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Connection status</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Telemetry status</p>
           <div className="mt-3 flex items-center gap-2">
             <div className={`h-2.5 w-2.5 rounded-full ${connectionColor === 'text-green-600' ? 'bg-green-500' : 'bg-red-500'}`} />
             <span className={`text-sm font-medium ${connectionColor}`}>
-              {connection === 'connected' ? 'Live connection' : 'Disconnected'}
+              {connection === 'connected' ? 'Telemetry stream active' : connection === 'reconnecting' ? 'Reconnecting telemetry stream' : 'Telemetry disconnected'}
             </span>
           </div>
         </div>
 
         {/* Workflow Context Input */}
         <div className="rounded-3xl bg-slate-50 p-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Workflow context</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Diagnostic context</p>
           <div className="mt-3 space-y-2">
             <label className="block text-sm text-slate-700">
-              Issue type
+              Fault type
               <select
                 value={workflowContext.issueType}
                 onChange={(e) => handleIssueTypeChange(e.target.value)}
@@ -85,7 +85,7 @@ export default function CopilotPanel({
               </select>
             </label>
             <label className="block text-sm text-slate-700">
-              User type
+              System tier
               <select
                 value={workflowContext.userType}
                 onChange={(e) => handleUserTypeChange(e.target.value)}
@@ -96,7 +96,7 @@ export default function CopilotPanel({
               </select>
             </label>
             <label className="block text-sm text-slate-700">
-              Region
+              Fleet region
               <select
                 value={workflowContext.region}
                 onChange={(e) => handleRegionChange(e.target.value)}
@@ -114,7 +114,7 @@ export default function CopilotPanel({
           <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Observability</p>
           <div className="mt-3 space-y-2 text-sm text-slate-700">
             <div className="flex justify-between">
-              <span className="uppercase tracking-[0.15em] text-xs">Connection</span>
+              <span className="uppercase tracking-[0.15em] text-xs">Telemetry</span>
               <span className="font-semibold">{connection}</span>
             </div>
             <div className="flex justify-between">
@@ -122,11 +122,11 @@ export default function CopilotPanel({
               <span className="font-semibold">{latency} ms</span>
             </div>
             <div className="flex justify-between">
-              <span className="uppercase tracking-[0.15em] text-xs">Retry Count</span>
+              <span className="uppercase tracking-[0.15em] text-xs">Reconnections</span>
               <span className="font-semibold">{retryCount}</span>
             </div>
             <label className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2.5">
-              <span className="text-sm font-medium text-slate-700">Enable failure mode</span>
+              <span className="text-sm font-medium text-slate-700">Enable anomaly simulation</span>
               <input
                 type="checkbox"
                 checked={failureModeEnabled}
@@ -139,7 +139,7 @@ export default function CopilotPanel({
 
         {/* Suggested Replies */}
         <div className="rounded-3xl bg-slate-50 p-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Suggested replies</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Suggested actions</p>
           <ul className="mt-3 space-y-2">
             {suggestions.replies.map((reply) => (
               <li key={reply}>
@@ -147,7 +147,7 @@ export default function CopilotPanel({
                   onClick={() => onSendReply?.(reply)}
                   className="w-full rounded-2xl bg-white px-3 py-2 text-left text-sm text-slate-700 shadow-sm transition hover:bg-slate-50 hover:shadow-md active:bg-slate-100"
                   type="button"
-                  aria-label={`Send reply: ${reply}`}
+                  aria-label={`Dispatch action: ${reply}`}
                 >
                   {reply}
                 </button>

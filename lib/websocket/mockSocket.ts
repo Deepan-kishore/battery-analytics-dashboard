@@ -67,7 +67,7 @@ export class MockSocket {
       if (Math.random() < 0.16) {
         this.connected = false;
         this.callbacks.onStatus('disconnected');
-        this.callbacks.onMessage('Network interruption detected. Attempting auto-reconnect.');
+        this.callbacks.onMessage('Telemetry interruption detected. Reconnecting battery event stream.');
         this.connectionStartTime = performance.now();
         this.scheduleReconnect();
       }
@@ -84,7 +84,7 @@ export class MockSocket {
       }
 
       this.callbacks.onMessage(
-        'System notification: a batch review is being prepared for high-priority accounts.'
+        'System notification: anomaly detected in pack temperature trend. Recalibrating prediction model.'
       );
     }, delay);
 

@@ -41,7 +41,7 @@ const initialState: MetricsState = {
   logs: [
     {
       id: nanoid(),
-      label: 'Metrics stream initialized',
+      label: 'Telemetry analytics stream initialized',
       tone: 'success',
       timestamp: new Date().toLocaleTimeString([], {
         hour: '2-digit',
@@ -54,7 +54,7 @@ const initialState: MetricsState = {
     currentStep: 'user',
     workflowStep: 'intent',
     knowledgeStep: 'data',
-    activeInput: 'Waiting for activity'
+    activeInput: 'Voltage spike detected'
   }
 };
 

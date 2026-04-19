@@ -10,13 +10,13 @@ export type WorkflowResponse = {
 
 const fallback: WorkflowResponse = {
   response: [
-    'Reviewing standard handling flow...',
-    'The issue has been mapped to an enterprise support path.',
-    'Recommended resolution: continue with the customer engagement and capture details.'
+    'Reviewing baseline battery diagnostic flow...',
+    'The event has been mapped to the default anomaly analysis path.',
+    'Recommended action: continue telemetry inspection and capture pack-level fault details.'
   ],
-  suggestedReplies: ['Clarify account details', 'Confirm issue severity', 'Offer escalation'],
-  knowledge: ['Standard workflows are used when no exact rule matches.', 'Support teams should capture issue classification early.'],
-  actionLabel: 'Validate customer intent'
+  suggestedReplies: ['Inspect pack telemetry', 'Confirm anomaly severity', 'Recommend system isolation'],
+  knowledge: ['Baseline diagnostics are used when no exact rule matches.', 'Fault classification should be captured as early as possible in the analysis flow.'],
+  actionLabel: 'Validate fault signature'
 };
 
 export function getWorkflowResponse(context: WorkflowContext): WorkflowResponse {

@@ -14,7 +14,7 @@ export default function HomePage() {
             Explore our AI-powered solutions for customer support and staff assistance
           </p> */}
           <p className="mt-4 text-lg text-slate-600">
-            Bridging AI and customer support
+            Real-time battery analytics and observability
           </p>
           
         </div>
@@ -23,14 +23,14 @@ export default function HomePage() {
         <div className="grid gap-8 md:grid-cols-2">
           <FeatureCard
             icon={<BotMessageSquare size={32} />}
-            title="AI Agents for your Customers"
-            description="Conversational AI agents that talk to your customers on phone and chat and resolve common requests end to end."
+            title="Battery Event Monitor"
+            description="Monitor live battery telemetry, diagnose fault events, and simulate resolution flows across connected systems."
             href="/customers"
           />
           <FeatureCard
             icon={<Sparkles size={32} />}
-            title="AI Copilot for your Human Staff"
-            description="Provide real time assistance to your existing staff for faster and accurate customer support."
+            title="Diagnostic Copilot for Analysts"
+            description="Provide real-time diagnostic assistance for operators reviewing battery anomalies, predictions, and recovery actions."
             href="/copilot"
           />
            {/* <FeatureCard

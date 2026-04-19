@@ -9,10 +9,10 @@ interface ChatInputProps {
 }
 
 const mockAudioPhrases = [
-  'Customer reports payment not reflecting in the ledger.',
-  'The application is failing after the latest update.',
-  'User cannot access billing statements in the portal.',
-  'Support ticket indicates a transaction authorization error.'
+  'Voltage spike detected across the rear battery pack.',
+  'Battery overheating event observed after the latest drive cycle.',
+  'Cell imbalance detected in module three during charging.',
+  'Telemetry indicates an unexpected current surge in the powertrain battery.'
 ];
 
 export default function ChatInput({ onSend, disabled }: ChatInputProps) {
@@ -53,17 +53,17 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
       };
 
       recorder.onstop = () => {
-        setStatusText('Processing audio...');
+        setStatusText('Processing telemetry note...');
         window.setTimeout(() => {
           setText(mockText);
-          setStatusText('Transcript added to input. Review and send.');
+          setStatusText('Event transcript added. Review and dispatch.');
         }, 1500);
       };
 
       recorder.start();
       setMediaRecorder(recorder);
       setRecording(true);
-      setStatusText('Recording voice input...');
+      setStatusText('Recording operator note...');
     } catch (error) {
       setStatusText('Unable to start audio capture. Please check permissions.');
     }
@@ -80,7 +80,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
     <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="flex gap-3">
         <label className="sr-only" htmlFor="chat-input">
-          Customer request
+          Battery event
         </label>
         <input
           id="chat-input"
@@ -96,7 +96,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
               }
             }
           }}
-          placeholder="Type customer issue or request…"
+          placeholder="Type a battery event or diagnostic note…"
           className="min-h-[52px] flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
           disabled={disabled}
         />
@@ -135,7 +135,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
       )}
       {!statusText && (
         <p className="mt-3 text-xs text-slate-500">
-          Enterprise flow expects exact issue classification and onboarding context. Keep requests concise.
+          Telemetry workflows expect exact fault classification and system context. Keep event descriptions concise.
         </p>
       )}
     </div>

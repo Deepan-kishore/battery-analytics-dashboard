@@ -37,10 +37,10 @@ export default function StaffChatPanel() {
         <div className="flex items-center gap-3">
           <img
             src="https://i.pravatar.cc/40?u=john-staff"
-            alt="John"
+            alt="Battery analyst"
             className="w-9 h-9 rounded-full object-cover"
           />
-          <span className="font-semibold text-slate-900 text-base">John</span>
+          <span className="font-semibold text-slate-900 text-base">Battery Analyst</span>
         </div>
         <button
           className="text-slate-400 hover:text-slate-600 transition-colors"
@@ -75,7 +75,7 @@ export default function StaffChatPanel() {
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-medium text-slate-500 bg-slate-50 border border-slate-100 hover:bg-slate-100 hover:text-slate-900 transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
                 >
                   <Sparkles size={12} className="text-yellow-500" fill="currentColor" />
-                  Send to Copilot
+                  Send to Diagnostics
                 </button>
               </div>
             )}
@@ -95,9 +95,9 @@ export default function StaffChatPanel() {
               handleSend();
             }
           }}
-          placeholder="Start typing...."
+          placeholder="Log a system event..."
           className="w-full text-sm text-slate-800 placeholder-slate-400 bg-transparent outline-none mb-3"
-          aria-label="Type a message"
+          aria-label="Type a system event"
         />
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -122,7 +122,7 @@ export default function StaffChatPanel() {
             aria-label="Send message"
             className="flex items-center gap-2 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 transition-colors text-slate-700 text-sm font-medium rounded-full px-4 py-2"
           >
-            Send
+            Dispatch
             <Send size={14} />
           </button>
         </div>

@@ -7,20 +7,20 @@
       "region": "US"
     },
     "response": [
-      "Reviewing premium billing workflow...",
-      "Priority payment routing is enabled.",
-      "Recommended resolution: confirm the authorization code and reconcile the invoice."
+      "Reviewing high-priority battery fault workflow...",
+      "Priority anomaly routing is enabled.",
+      "Recommended action: confirm the voltage excursion and reconcile the pack telemetry window."
     ],
     "suggestedReplies": [
-      "Confirm transaction ID",
-      "Authorize payment retry",
-      "Escalate to finance ops"
+      "Confirm voltage excursion window",
+      "Trigger pack recalibration",
+      "Escalate to battery operations"
     ],
     "knowledge": [
-      "Premium customers receive accelerated settlement review.",
-      "US payment incidents often require dual verification."
+      "High-priority fleets receive accelerated anomaly review.",
+      "US battery incidents often require dual-sensor verification."
     ],
-    "actionLabel": "Review authorized payment status"
+    "actionLabel": "Review voltage anomaly status"
   },
   {
     "id": "payment-basic-in",
@@ -30,20 +30,20 @@
       "region": "IN"
     },
     "response": [
-      "Validating payment record against India compliance rules...",
-      "The account is on the standard support tier.",
-      "Recommended resolution: verify bank details and inform the customer of expected settlement delays."
+      "Validating battery telemetry against regional compliance thresholds...",
+      "The system is on the standard monitoring tier.",
+      "Recommended action: verify pack current readings and inform operations of the expected stabilization window."
     ],
     "suggestedReplies": [
-      "Request bank reference",
-      "Confirm invoice date",
-      "Advise expected processing window"
+      "Request sensor reference",
+      "Confirm event timestamp",
+      "Advise expected stabilization window"
     ],
     "knowledge": [
-      "Indian payment reconciliation often includes RBI compliance checks.",
-      "Basic users are routed through standard support with defined SLAs."
+      "Regional battery telemetry checks may include compliance threshold validation.",
+      "Standard monitoring tiers follow defined anomaly-review SLAs."
     ],
-    "actionLabel": "Validate payment details"
+    "actionLabel": "Validate telemetry readings"
   },
   {
     "id": "technical-premium-in",
@@ -53,20 +53,20 @@
       "region": "IN"
     },
     "response": [
-      "Analyzing technical diagnostics for premium account...",
-      "Telemetry indicates a configuration mismatch.",
-      "Recommended resolution: escalate to the engineering team for priority remediation."
+      "Analyzing advanced diagnostics for high-priority battery system...",
+      "Telemetry indicates a cell-balancing mismatch.",
+      "Recommended action: escalate to engineering for priority remediation."
     ],
     "suggestedReplies": [
-      "Collect system logs",
-      "Schedule a high-priority service window",
-      "Escalate to engineering"
+      "Collect pack logs",
+      "Schedule a high-priority maintenance window",
+      "Escalate to battery engineering"
     ],
     "knowledge": [
-      "Premium technical issues require priority incident response.",
-      "Indian time zones may affect escalation handoff windows."
+      "High-priority battery faults require priority incident response.",
+      "Regional handoff windows may affect engineering escalation timing."
     ],
-    "actionLabel": "Initiate priority escalation"
+    "actionLabel": "Initiate priority diagnostic escalation"
   },
   {
     "id": "technical-basic-us",
@@ -76,19 +76,19 @@
       "region": "US"
     },
     "response": [
-      "Running standard technical checks...",
-      "The issue appears related to a local configuration setting.",
-      "Recommended resolution: guide the customer through a restart and configuration review."
+      "Running standard battery checks...",
+      "The anomaly appears related to a local calibration setting.",
+      "Recommended action: guide the operator through a restart and calibration review."
     ],
     "suggestedReplies": [
-      "Ask for error logs",
-      "Recommend a restart",
-      "Check environment settings"
+      "Inspect fault logs",
+      "Recommend a system restart",
+      "Check calibration settings"
     ],
     "knowledge": [
-      "US region technical support follows a standard troubleshooting protocol.",
-      "Basic accounts are triaged before escalation."
+      "US-region battery diagnostics follow a standard troubleshooting protocol.",
+      "Standard monitoring tiers are triaged before escalation."
     ],
-    "actionLabel": "Guide through technical troubleshooting"
+    "actionLabel": "Guide through battery diagnostics"
   }
 ]

@@ -13,11 +13,11 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const recentChats = [
-    "Customer Support Query",
-    "API Integration Help",
-    "Billing Issue",
-    "Feature Request",
-    "Technical Troubleshooting"
+    'Voltage spike alert',
+    'Thermal runaway review',
+    'Cell imbalance detection',
+    'Charging anomaly trace',
+    'Battery calibration diagnostic'
   ];
 
   // Only show sidebar on copilot page as per original design
@@ -43,8 +43,8 @@ export default function Sidebar() {
       >
         <div className="flex items-center justify-between gap-3 border-b border-slate-200 px-5 py-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Copilot sidebar</p>
-            <h1 className="mt-1 text-lg font-semibold text-slate-900">Workspace</h1>
+            <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Diagnostics sidebar</p>
+            <h1 className="mt-1 text-lg font-semibold text-slate-900">Telemetry workspace</h1>
           </div>
           <button
             type="button"
@@ -66,7 +66,7 @@ export default function Sidebar() {
             }`}
           >
             <LayoutGrid size={16} />
-            Dashboard
+            Overview
           </Link>
 
           <div>
@@ -79,7 +79,7 @@ export default function Sidebar() {
             >
               <div className="flex items-center gap-3">
                 <MessageSquare size={16} />
-                Recent chats
+                Recent diagnostics
               </div>
               {recentChatsOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
             </button>
@@ -106,7 +106,7 @@ export default function Sidebar() {
             className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm text-slate-700 transition hover:bg-slate-50"
           >
             <Zap size={16} />
-            Prompts
+            Playbooks
           </button>
 
           <button
@@ -120,7 +120,7 @@ export default function Sidebar() {
 
         <div className="border-t border-slate-200 px-5 py-4">
           <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Need help?</p>
-          <p className="mt-2 text-sm text-slate-700">Use Copilot to generate suggestions, replies, and workflow context.</p>
+          <p className="mt-2 text-sm text-slate-700">Use diagnostics copilots to review anomaly signals, predictions, and recommended actions.</p>
         </div>
       </aside>
     </>
