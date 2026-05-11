@@ -222,7 +222,7 @@ export default function ChatConsole() {
     dispatch(setMetricsKnowledgeStep('decision'));
     dispatch(appendMetricsLog({ label: `Diagnostic model selected -> ${workflow.actionLabel}` }));
 
-    if (failureModeEnabled && Math.random() < 0.5) {
+    if (failureModeEnabled ) {
       const outcome = await runFailureScenario(stepId, responseStartedAt);
       if (outcome === 'failed') {
         return;

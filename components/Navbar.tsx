@@ -47,6 +47,7 @@ export default function Navbar() {
               { href: '/customers', label: 'Monitor' },
               { href: '/copilot', label: 'Diagnostics' },
               { href: '/metric', label: 'Analytics' },
+              { href: '/insights', label: 'Insights' },
             ].map(({ href, label }) => {
               const isActive = pathname === href;
               return (
